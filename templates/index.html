@@ -1,0 +1,32 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Frações Egípcias</title><link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"></head><body>
+<header><h1>Frações Egípcias<small>Proposição 12 · algoritmo de Fibonacci-Sylvester</small></h1>
+<button class="ghost" id="th">🌙 Escuro</button></header>
+<nav><button data-t="ex" class="on">Explicar</button><button data-t="de">Demonstrar</button><button data-t="te">Testar</button><button data-t="re">Relatório PDF</button></nav>
+<main>
+<section id="ex" class="on"><h2>O problema</h2>
+<div class="card"><b>Fração unitária</b> é 1/n (n inteiro positivo). <b>Fração egípcia</b> é uma soma de unitárias <i>distintas</i>, ex.: 11/12 = 1/2 + 1/4 + 1/6.
+O papiro de Rhind (c. 1650 a.C.) traz a tabela de 2/n para n ímpar de 5 a 101; a única fração sem unitárias era 2/3.</div>
+<div class="card"><b>Piso, teto e parte fracionária:</b> ⌊x⌋ é o inteiro k com k ≤ x &lt; k+1; ⌈x⌉ é o inteiro k com k−1 &lt; x ≤ k; {x} = x − ⌊x⌋ ∈ [0,1).
+Ex.: ⌊−π⌋ = −4, ⌈−π⌉ = −3, {√2} = √2 − 1.</div>
+<h2>Proposição 12</h2><div class="card gold">Toda fração p/q, com inteiros 0 &lt; p &lt; q, é soma de frações unitárias distintas.</div>
+<h3>O algoritmo voraz</h3><div class="card"><ol><li>k = ⌈q/p⌉ (menor k com 1/k ≤ p/q).</li><li>Subtraia: p/q − 1/k = (pk − q)/(qk).</li><li>Se o resto for 0, acabou; senão repita com o resto.</li></ol>
+Exemplo (Ex. 16): 5/7 → ⌈7/5⌉=2 → 3/14 → ⌈14/3⌉=5 → 1/70. Logo 5/7 = 1/2 + 1/5 + 1/70.</div>
+<h3>A prova, em palavras (indução forte no numerador)</h3>
+<div class="card"><b>Hipótese:</b> vale para todo numerador menor que p. Seja k = ⌈q/p⌉; então k−1 &lt; q/p ≤ k, isto é, 1/k ≤ p/q &lt; 1/(k−1).<br>
+<b>(i)</b> Se 1/k = p/q, acabou.<br><b>(ii)</b> Senão 1/k &lt; p/q &lt; 1/(k−1) e p/q = 1/k + p₁/q₁ com p₁ = pk − q, q₁ = qk.<br>
+• <b>p₁ &lt; p</b>: de k−1 &lt; q/p vem p(k−1) &lt; q, logo pk − q &lt; p.<br>
+• <b>0 &lt; p₁ &lt; q₁</b>: p₁ &gt; 0 porque 1/k &lt; p/q; p₁ &lt; p &lt; q &lt; qk.<br>
+• Pela hipótese, p₁/q₁ é soma de unitárias distintas, todas ≤ p₁/q₁ &lt; 1/(k−1) − 1/k = 1/(k(k−1)) ≤ 1/k, portanto <b>menores que 1/k</b>. Basta somar 1/k. ∎</div>
+<div class="card gold"><b>Nota sobre a imagem 2:</b> a linha "p₁ = pk − p = pq − p + p − q …" parece ter uma gralha. O correto é <b>p₁ = pk − q</b>, e p₁ &lt; p segue de p(k−1) &lt; q.</div></section>
+
+<section id="de"><h2>Demonstrar</h2><div class="row">p <input id="p" type="number" value="5"> q <input id="q" type="number" value="7">
+<button onclick="demo()">Decompor</button></div>
+<p>Exemplos: <button class="chip" onclick="demo(5,7)">5/7</button><button class="chip" onclick="demo(11,12)">11/12</button><button class="chip" onclick="demo(5,17)">5/17</button><button class="chip" onclick="demo(2,3)">2/3</button><button class="chip" onclick="demo(4,13)">4/13</button><button class="chip" onclick="demo(5,121)">5/121</button></p><div id="out"></div></section>
+
+<section id="te"><h2>Testar a Proposição 12</h2><div class="row">Todas as frações irredutíveis com q ≤ <input id="n" type="number" value="60" min="3" max="300"><button onclick="test()">Executar testes</button></div><div id="tout"></div></section>
+
+<section id="re"><h2>Relatório detalhado em PDF</h2><div class="card">O relatório traz objetivo, definições, algoritmo, demonstração, passos numéricos, testes, tabela 2/n, limitações, metodologia e conclusão.</div>
+<div class="row">p <input id="rp" type="number" value="5"> q <input id="rq" type="number" value="7"> testes até q = <input id="rn" type="number" value="60" max="150">
+<a class="btn gold" id="dl" href="#" onclick="this.href=`/relatorio.pdf?p=${rp.value}&q=${rq.value}&n=${rn.value}`">⬇ Baixar PDF</a></div></section>
+</main><script src="{{ url_for('static', filename='js/app.js') }}"></script></body></html>
