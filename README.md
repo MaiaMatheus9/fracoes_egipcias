@@ -17,3 +17,16 @@ e gera um relatório técnico em PDF.
     templates/index.html    estrutura da página
     static/css/style.css    paleta azul-marinho/elétrico/clássico, turquesa, dourado, branco + temas claro/escuro
     static/js/app.js        abas, tema, chamadas à API e renderização dos passos
+
+## Exemplo de fração egípcia
+
+Uma fração egípcia representa uma fração positiva como soma de
+frações unitárias distintas, ou seja, com numerador igual a 1.
+
+Por exemplo:
+
+5/7 = 1/2 + 1/5 + 1/70
+
+Conferindo com denominador comum:
+
+35/70 + 14/70 + 1/70 = 50/70 = 5/7.
